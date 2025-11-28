@@ -6,7 +6,7 @@ import (
 	_ "net/http/pprof"
 	"testing"
 
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/service"
+	"github.com/zhan9san/prometheus-msteams/pkg/service"
 )
 
 func Test_validateWebhook(t *testing.T) {
