@@ -56,7 +56,7 @@ metrics:
     scrapeInterval: 30s
 ```
 
-See [Helm Configuration](#helm-configuration) and [App Configuration](https://github.com/prometheus-msteams/prometheus-msteams#configuration) for reference.
+See [Helm Configuration](#helm-configuration) and [App Configuration](https://github.com/zhan9san/prometheus-msteams#configuration) for reference.
 
 
 ### Deploy to Kubernetes cluster
@@ -64,7 +64,7 @@ See [Helm Configuration](#helm-configuration) and [App Configuration](https://gi
 ```bash
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 ### When using with Prometheus Operator
@@ -82,7 +82,7 @@ You can use the `--set-file` flag to set the value from this file:
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
   --set-file customCardTemplate=custom-card.tmpl \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 Otherwise you can also set the value by specifying the template data directly via values file.
@@ -106,7 +106,7 @@ You can use the `--set-file` flag to set the value from this file:
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
   --set-file "connectorsWithCustomTemplates[0].template_file=custom-card.tmpl" \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 Otherwise you can also set the value by specifying the template data directly via values file:

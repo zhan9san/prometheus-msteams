@@ -81,7 +81,7 @@ extraVolumeMounts: []
 
 connectors: []
 
-# ref: https://github.com/prometheus-msteams/prometheus-msteams#customise-messages-per-ms-teams-channel
+# ref: https://github.com/zhan9san/prometheus-msteams#customise-messages-per-ms-teams-channel
 connectorsWithCustomTemplates: []
 # - request_path: /alert2
 #   template_file: |

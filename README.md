@@ -1,7 +1,7 @@
-[![GitHub tag](https://img.shields.io/github/tag/prometheus-msteams/prometheus-msteams.svg)](https://github.com/prometheus-msteams/prometheus-msteams/releases/)
-[![Build Status](https://travis-ci.org/prometheus-msteams/prometheus-msteams.svg?branch=master)](https://travis-ci.org/prometheus-msteams/prometheus-msteams)
-[![codecov](https://codecov.io/gh/prometheus-msteams/prometheus-msteams/branch/master/graph/badge.svg)](https://codecov.io/gh/prometheus-msteams/prometheus-msteams)
-[![Go Report Card](https://goreportcard.com/badge/github.com/prometheus-msteams/prometheus-msteams)](https://goreportcard.com/report/github.com/prometheus-msteams/prometheus-msteams)
+[![GitHub tag](https://img.shields.io/github/tag/zhan9san/prometheus-msteams.svg)](https://github.com/zhan9san/prometheus-msteams/releases/)
+[![Build Status](https://travis-ci.org/zhan9san/prometheus-msteams.svg?branch=master)](https://travis-ci.org/zhan9san/prometheus-msteams)
+[![codecov](https://codecov.io/gh/zhan9san/prometheus-msteams/branch/master/graph/badge.svg)](https://codecov.io/gh/zhan9san/prometheus-msteams)
+[![Go Report Card](https://goreportcard.com/badge/github.com/zhan9san/prometheus-msteams)](https://goreportcard.com/report/github.com/zhan9san/prometheus-msteams)
 
 ![](./docs/teams_screenshot.png)
 
@@ -63,7 +63,7 @@ docker run -d -p 2000:2000 \
 
 __OPTION 2:__ Run using binary.
 
-Download the binary for your platform and the default card template from [RELEASES](https://github.com/prometheus-msteams/prometheus-msteams/releases), then run the binary in the same directory as you have stored the `default-message-card.tmpl`  like the following:
+Download the binary for your platform and the default card template from [RELEASES](https://github.com/zhan9san/prometheus-msteams/releases), then run the binary in the same directory as you have stored the `default-message-card.tmpl`  like the following:
 
 ```bash
 ./prometheus-msteams -teams-request-uri alertmanager \
