@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/prometheusmsteams/prometheus-msteams
+  repository: ghcr.io/zhan9san/prometheus-msteams
   tag: v1.5.2
   pullPolicy: Always
 
