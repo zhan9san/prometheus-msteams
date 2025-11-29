@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/testutils"
+	"github.com/zhan9san/prometheus-msteams/pkg/testutils"
 )
 
 func Test_templatedCard_Convert(t *testing.T) {

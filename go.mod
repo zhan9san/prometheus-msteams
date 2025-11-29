@@ -1,4 +1,4 @@
-module github.com/prometheus-msteams/prometheus-msteams
+module github.com/zhan9san/prometheus-msteams
 
 require (
 	contrib.go.opencensus.io/exporter/jaeger v0.2.1

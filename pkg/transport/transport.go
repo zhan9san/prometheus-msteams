@@ -14,7 +14,7 @@ import (
 	"go.opencensus.io/trace"
 
 	"github.com/labstack/echo/v4"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/service"
+	"github.com/zhan9san/prometheus-msteams/pkg/service"
 )
 
 // Route holds the Service implementation and the Request path to serve the Service.

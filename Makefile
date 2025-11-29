@@ -11,21 +11,14 @@ GOFMT_FILES?=$$(find . -name '*.go')
 GO := GO111MODULE=on go
 
 # Symlink into GOPATH
-GITHUB_USERNAME=prometheus-msteams
+GITHUB_USERNAME=zhan9san
 BUILD_DIR=$(GOPATH)/src/github.com/$(GITHUB_USERNAME)/$(BINARY)
 VERSION_PKG=github.com/$(GITHUB_USERNAME)/prometheus-msteams/pkg/version
 
 # Setup the -ldflags option for go build here, interpolate the variable values
 LDFLAGS = -ldflags "-X $(VERSION_PKG).VERSION=$(VERSION) -X $(VERSION_PKG).COMMIT=$(COMMIT) -X $(VERSION_PKG).BRANCH=$(BRANCH) -X $(VERSION_PKG).BUILDDATE=$(BUILD_DATE)"
 
-DOCKER_RUN_OPTS ?=
-DOCKER_RUN_ARG ?=
 RUN_ARGS ?=
-
-# docker
-DOCKER_QUAY_REPO=quay.io/prometheusmsteams/prometheus-msteams
-DOCKER_QUAY_USER=prometheusmsteams+ci
-DOCKER_HUB_REPO=prometheusmsteams/prometheus-msteams
 
 # Build the project
 all: clean dep create_bin_dir linux darwin windows
@@ -46,26 +39,6 @@ darwin:
 
 windows:
 	CGO_ENABLED=0 GOOS=windows GOARCH=$(GOARCH) $(GO) build $(LDFLAGS) -o $(BINDIR)/$(BINARY)-windows-$(GOARCH).exe ./cmd/server
-
-docker:
-	docker build -t $(DOCKER_HUB_REPO):$(VERSION) .
-	docker tag $(DOCKER_HUB_REPO):$(VERSION) $(DOCKER_QUAY_REPO):$(VERSION)
-
-docker-hub-login:
-	echo ${DOCKER_PASSWORD} | docker login --password-stdin -u ${DOCKER_USER}
-
-docker-quay-login:
-	docker login -u="${DOCKER_QUAY_USER}" -p="${DOCKER_QUAY_TOKEN}" quay.io
-
-docker-quay-push:
-	docker push $(DOCKER_QUAY_REPO):$(VERSION)
-
-docker-tag-latest:
-	docker tag $(DOCKER_HUB_REPO):$(VERSION) $(DOCKER_HUB_REPO):latest
-	docker tag $(DOCKER_QUAY_REPO):$(VERSION) $(DOCKER_QUAY_REPO):latest
-
-docker-hub-push: docker
-	docker push $(DOCKER_HUB_REPO):$(VERSION)
 
 run:
 	go run cmd/server/main.go -http-addr=localhost:2000 $(RUN_ARGS)

@@ -19,11 +19,11 @@ import (
 
 	ocprometheus "contrib.go.opencensus.io/exporter/prometheus"
 	"github.com/labstack/echo/v4"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/card"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/service"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/transport"
-	"github.com/prometheus-msteams/prometheus-msteams/pkg/version"
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
+	"github.com/zhan9san/prometheus-msteams/pkg/card"
+	"github.com/zhan9san/prometheus-msteams/pkg/service"
+	"github.com/zhan9san/prometheus-msteams/pkg/transport"
+	"github.com/zhan9san/prometheus-msteams/pkg/version"
 
 	"contrib.go.opencensus.io/exporter/jaeger"
 	"go.opencensus.io/plugin/ochttp"

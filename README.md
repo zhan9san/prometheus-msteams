@@ -1,13 +1,13 @@
-[![GitHub tag](https://img.shields.io/github/tag/prometheus-msteams/prometheus-msteams.svg)](https://github.com/prometheus-msteams/prometheus-msteams/releases/)
-[![Build Status](https://travis-ci.org/prometheus-msteams/prometheus-msteams.svg?branch=master)](https://travis-ci.org/prometheus-msteams/prometheus-msteams)
-[![codecov](https://codecov.io/gh/prometheus-msteams/prometheus-msteams/branch/master/graph/badge.svg)](https://codecov.io/gh/prometheus-msteams/prometheus-msteams)
-[![Go Report Card](https://goreportcard.com/badge/github.com/prometheus-msteams/prometheus-msteams)](https://goreportcard.com/report/github.com/prometheus-msteams/prometheus-msteams)
+[![GitHub tag](https://img.shields.io/github/tag/zhan9san/prometheus-msteams.svg)](https://github.com/zhan9san/prometheus-msteams/releases/)
+[![Build Status](https://travis-ci.org/zhan9san/prometheus-msteams.svg?branch=master)](https://travis-ci.org/zhan9san/prometheus-msteams)
+[![codecov](https://codecov.io/gh/zhan9san/prometheus-msteams/branch/master/graph/badge.svg)](https://codecov.io/gh/zhan9san/prometheus-msteams)
+[![Go Report Card](https://goreportcard.com/badge/github.com/zhan9san/prometheus-msteams)](https://goreportcard.com/report/github.com/zhan9san/prometheus-msteams)
 
 ![](./docs/teams_screenshot.png)
 
 # Overview
 
-A lightweight Go Web Server that receives __POST__ alert messages from __Prometheus Alert Manager__ and sends it to a __Microsoft Teams Channel__ using an incoming webhook url. How light? See the [docker image](https://quay.io/repository/prometheusmsteams/prometheus-msteams?tab=tags)!
+A lightweight Go Web Server that receives __POST__ alert messages from __Prometheus Alert Manager__ and sends it to a __Microsoft Teams Channel__ using an incoming webhook url. How light? See the [docker image](https://ghcr.io/zhan9san/prometheus-msteams)!
 
 ## Synopsis
 
@@ -21,23 +21,25 @@ Why use [Go](https://golang.org/)? A Go binary is statically compiled unlike the
 
 <!-- vim-markdown-toc GFM -->
 
-- [Synopsis](#synopsis)
-- [Why choose Go? Not Python or Ruby or Node?](#why-choose-go-not-python-or-ruby-or-node)
-- [Getting Started (Quickstart)](#getting-started-quickstart)
-  - [Installation](#installation)
-  - [Setting up Prometheus Alert Manager](#setting-up-prometheus-alert-manager)
-    - [static uri handler (e.g. /alertmanager)](#static-uri-handler-eg-alertmanager)
-    - [dynamic uri handler /_dynamicwebhook/*](#dynamic-uri-handler-_dynamicwebhook)
-  - [Simulating a Prometheus Alerts to Teams Channel](#simulating-a-prometheus-alerts-to-teams-channel)
-- [Sending Alerts to Multiple Teams Channel](#sending-alerts-to-multiple-teams-channel)
-  - [Creating the Configuration File](#creating-the-configuration-file)
-  - [Setting up Prometheus Alert Manager](#setting-up-prometheus-alert-manager-1)
-- [Customise Messages to MS Teams](#customise-messages-to-ms-teams)
-  - [Customise Messages per MS Teams Channel](#customise-messages-per-ms-teams-channel)
-  - [Use Template functions to improve your templates](#use-template-functions-to-improve-your-templates)
-- [Configuration](#configuration)
-- [Kubernetes Deployment](#kubernetes-deployment)
-- [Contributing](#contributing)
+- [Overview](#overview)
+  - [Synopsis](#synopsis)
+  - [Why choose Go? Not Python or Ruby or Node?](#why-choose-go-not-python-or-ruby-or-node)
+  - [Table of Contents](#table-of-contents)
+  - [Getting Started (Quickstart)](#getting-started-quickstart)
+    - [Installation](#installation)
+    - [Setting up Prometheus Alert Manager](#setting-up-prometheus-alert-manager)
+      - [static uri handler (e.g. /alertmanager)](#static-uri-handler-eg-alertmanager)
+      - [dynamic uri handler /\_dynamicwebhook/\*](#dynamic-uri-handler-_dynamicwebhook)
+    - [Simulating a Prometheus Alerts to Teams Channel](#simulating-a-prometheus-alerts-to-teams-channel)
+  - [Sending Alerts to Multiple Teams Channel](#sending-alerts-to-multiple-teams-channel)
+    - [Creating the Configuration File](#creating-the-configuration-file)
+    - [Setting up Prometheus Alert Manager](#setting-up-prometheus-alert-manager-1)
+  - [Customise Messages to MS Teams](#customise-messages-to-ms-teams)
+    - [Customise Messages per MS Teams Channel](#customise-messages-per-ms-teams-channel)
+    - [Use Template functions to improve your templates](#use-template-functions-to-improve-your-templates)
+  - [Configuration](#configuration)
+  - [Kubernetes Deployment](#kubernetes-deployment)
+  - [Contributing](#contributing)
 
 <!-- vim-markdown-toc -->
 
@@ -58,12 +60,12 @@ docker run -d -p 2000:2000 \
     --name="promteams" \
     -e TEAMS_INCOMING_WEBHOOK_URL="https://example.webhook.office.com/webhookb2/xxx" \
     -e TEAMS_REQUEST_URI=alertmanager \
-    quay.io/prometheusmsteams/prometheus-msteams
+    ghcr.io/zhan9san/prometheus-msteams
 ```
 
 __OPTION 2:__ Run using binary.
 
-Download the binary for your platform and the default card template from [RELEASES](https://github.com/prometheus-msteams/prometheus-msteams/releases), then run the binary in the same directory as you have stored the `default-message-card.tmpl`  like the following:
+Download the binary for your platform and the default card template from [RELEASES](https://github.com/zhan9san/prometheus-msteams/releases), then run the binary in the same directory as you have stored the `default-message-card.tmpl`  like the following:
 
 ```bash
 ./prometheus-msteams -teams-request-uri alertmanager \
@@ -217,7 +219,7 @@ docker run -d -p 2000:2000 \
     --name="promteams" \
     -v /tmp/config.yml:/tmp/config.yml \
     -e CONFIG_FILE="/tmp/config.yml" \
-    quay.io/prometheusmsteams/prometheus-msteams:v1.5.1
+    ghcr.io/zhan9san/prometheus-msteams:v1.5.1
 ```
 
 When running as a binary, use the __-config-file__ flag.
@@ -288,7 +290,7 @@ docker run -d -p 2000:2000 \
     -e TEAMS_INCOMING_WEBHOOK_URL="https://example.webhook.office.com/webhookb2/xxx" \
     -v /tmp/card.tmpl:/tmp/card.tmpl \
     -e TEMPLATE_FILE="/tmp/card.tmpl" \
-    quay.io/prometheusmsteams/prometheus-msteams
+    ghcr.io/zhan9san/prometheus-msteams
 ```
 
 When running as a binary, use the __-template-file__ flag.

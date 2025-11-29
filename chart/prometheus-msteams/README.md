@@ -2,13 +2,14 @@
 
 <!-- vim-markdown-toc GFM -->
 
-- [Download the chart](#download-the-chart)
-- [Prepare the Deployment configuration](#prepare-the-deployment-configuration)
-- [Deploy to Kubernetes cluster](#deploy-to-kubernetes-cluster)
-- [When using with Prometheus Operator](#when-using-with-prometheus-operator)
-- [Customise messages to MS Teams](#customise-messages-to-ms-teams)
-- [Customise messages per MS Teams Channel](#customise-messages-per-ms-teams-channel)
-- [Helm Configuration](#helm-configuration)
+- [Installing the Chart](#installing-the-chart)
+  - [Download the chart](#download-the-chart)
+  - [Prepare the Deployment configuration](#prepare-the-deployment-configuration)
+  - [Deploy to Kubernetes cluster](#deploy-to-kubernetes-cluster)
+  - [When using with Prometheus Operator](#when-using-with-prometheus-operator)
+  - [Customise messages to MS Teams](#customise-messages-to-ms-teams)
+  - [Customise Messages per MS Teams Channel](#customise-messages-per-ms-teams-channel)
+  - [Helm Configuration](#helm-configuration)
 
 <!-- vim-markdown-toc -->
 
@@ -30,7 +31,7 @@ Create a helm values file to configure your Microsoft Teams channel connectors a
 ---
 replicaCount: 1
 image:
-  repository: quay.io/prometheusmsteams/prometheus-msteams
+  repository: ghcr.io/zhan9san/prometheus-msteams
   tag: v1.5.1
 
 connectors:
@@ -56,7 +57,7 @@ metrics:
     scrapeInterval: 30s
 ```
 
-See [Helm Configuration](#helm-configuration) and [App Configuration](https://github.com/prometheus-msteams/prometheus-msteams#configuration) for reference.
+See [Helm Configuration](#helm-configuration) and [App Configuration](https://github.com/zhan9san/prometheus-msteams#configuration) for reference.
 
 
 ### Deploy to Kubernetes cluster
@@ -64,7 +65,7 @@ See [Helm Configuration](#helm-configuration) and [App Configuration](https://gi
 ```bash
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 ### When using with Prometheus Operator
@@ -82,7 +83,7 @@ You can use the `--set-file` flag to set the value from this file:
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
   --set-file customCardTemplate=custom-card.tmpl \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 Otherwise you can also set the value by specifying the template data directly via values file.
@@ -106,7 +107,7 @@ You can use the `--set-file` flag to set the value from this file:
 helm upgrade --install prometheus-msteams \
   --namespace default -f config.yaml \
   --set-file "connectorsWithCustomTemplates[0].template_file=custom-card.tmpl" \
-  prometheus-msteams/prometheus-msteams
+  zhan9san/prometheus-msteams
 ```
 
 Otherwise you can also set the value by specifying the template data directly via values file:
@@ -126,7 +127,7 @@ connectorsWithCustomTemplates:
 
 | Parameter                                  | Description                                                                                                                                                   | Default                                         |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| `image.repository`                         | Image repository                                                                                                                                              | `quay.io/prometheusmsteams/prometheus-msteams`  |
+| `image.repository`                         | Image repository                                                                                                                                              | `ghcr.io/zhan9san/prometheus-msteams`  |
 | `image.tag`                                | Image tag                                                                                                                                                     | `v1.5.1`                                        |
 | `image.pullPolicy`                         | Image pull policy                                                                                                                                             | `Always`                                        |
 | `imagePullSecrets`                         | Configuration for [imagePullSecrets](https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret) so that you can use a private registry for your image | `[]` |
