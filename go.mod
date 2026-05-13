@@ -95,4 +95,4 @@ require (
 	k8s.io/apimachinery v0.18.8 // indirect
 )
 
-go 1.23
+go 1.25.0
