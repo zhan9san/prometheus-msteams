@@ -15,6 +15,8 @@ import (
 	"k8s.io/helm/pkg/engine"
 )
 
+const messageCardType = "MessageCard"
+
 // templatedCard implements Converter using Alert manager templating.
 type templatedCard struct {
 	template *template.Template
@@ -41,7 +43,7 @@ func (m *templatedCard) Convert(ctx context.Context, promAlert webhook.Message) 
 		return Office365ConnectorCard{}, err
 	}
 
-	if card.Type != "MessageCard" {
+	if card.Type != messageCardType {
 		return Office365ConnectorCard{}, errors.New("only MessageCard type is supported")
 	}
 

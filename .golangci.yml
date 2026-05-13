@@ -1,4 +1,7 @@
+version: "2"
+
 linters:
+  default: none
   enable:
     - bodyclose
     - depguard
@@ -10,11 +13,8 @@ linters:
     - goconst
     - gocritic
     - gocyclo
-    - gofmt
-    - goimports
     - goprintffuncname
     - gosec
-    - gosimple
     - govet
     - ineffassign
     - misspell
@@ -22,67 +22,64 @@ linters:
     - revive
     - rowserrcheck
     - staticcheck
-    - stylecheck
-    - typecheck
     - unconvert
     - unparam
-    - unused
     - whitespace
-issues:
-  exclude-rules:
-    - linters:
-       - revive
-      text: "don't use ALL_CAPS in Go names"
-    - linters:
-       - stylecheck
-      text: "ST1003: should not use ALL_CAPS in Go names"
-    # Exclude some linters from running on tests files.
-    - path: _test\.go
-      linters:
-        - gocyclo
-        - errcheck
-        - dupl
-        - gosec
-        - funlen
-linters-settings:
-  funlen:
-    lines: 120
-    statements: 50
-  misspell:
-    locale: US
-  depguard:
+  settings:
+    funlen:
+      lines: 120
+      statements: 50
+    misspell:
+      locale: US
+    depguard:
+      rules:
+        main:
+          allow:
+            - $gostd
+            - contrib.go.opencensus.io/exporter/jaeger
+            - contrib.go.opencensus.io/exporter/prometheus
+            - go.opencensus.io/plugin/ochttp
+            - go.opencensus.io/stats/view
+            - go.opencensus.io/tag
+            - go.opencensus.io/trace
+            - github.com/go-kit/kit/log
+            - github.com/google/go-cmp/cmp
+            - github.com/hashicorp/go-retryablehttp
+            - github.com/josephburnett/jd/lib
+            - github.com/labstack/echo/v4
+            - github.com/oklog/run
+            - github.com/peterbourgon/ff
+            - github.com/pkg/errors
+            - github.com/prometheus/alertmanager/notify/webhook
+            - github.com/prometheus/alertmanager/template
+            - github.com/prometheus/client_golang/prometheus
+            - github.com/prometheus-msteams/prometheus-msteams
+            - gopkg.in/yaml.v2
+            - k8s.io/helm/pkg/engine
+    errcheck:
+      exclude-functions:
+        - (github.com/go-kit/kit/log.Logger).Log
+  exclusions:
     rules:
-      main:
-        allow:
-         - $gostd
+      - linters:
+          - revive
+        text: "don't use ALL_CAPS in Go names"
+      - linters:
+          - staticcheck
+        text: "ST1003: should not use ALL_CAPS in Go names"
+      - linters:
+          - gosec
+        text: "G104"
+        source: '\.Log\('
+      - path: _test\.go
+        linters:
+          - gocyclo
+          - errcheck
+          - dupl
+          - gosec
+          - funlen
 
-         - contrib.go.opencensus.io/exporter/jaeger
-         - contrib.go.opencensus.io/exporter/prometheus
-         - go.opencensus.io/plugin/ochttp
-         - go.opencensus.io/stats/view
-         - go.opencensus.io/tag
-         - go.opencensus.io/trace
-         - github.com/go-kit/kit/log
-         - github.com/google/go-cmp/cmp
-         - github.com/hashicorp/go-retryablehttp
-         - github.com/josephburnett/jd/lib
-         - github.com/labstack/echo/v4
-         - github.com/oklog/run
-         - github.com/peterbourgon/ff
-         - github.com/pkg/errors
-         - github.com/prometheus/alertmanager/notify/webhook
-         - github.com/prometheus/alertmanager/template
-         - github.com/prometheus/client_golang/prometheus
-         - github.com/prometheus-msteams/prometheus-msteams
-         - gopkg.in/yaml.v2
-         - k8s.io/helm/pkg/engine
-  errcheck:
-    # path to a file containing a list of functions to exclude from checking
-    # see https://github.com/kisielk/errcheck#excluding-functions for details
-    exclude: ./errcheck-exclude.txt
-  unused:
-    # treat code as a program (not a library) and report unused exported identifiers; default is false.
-    # XXX: if you enable this setting, unused will report a lot of false-positives in text editors:
-    # if it's called for subdir of a project it can't find funcs usages. All text editor integrations
-    # with golangci-lint call it on a directory with the changed file.
-    check-exported: false
+formatters:
+  enable:
+    - gofmt
+    - goimports

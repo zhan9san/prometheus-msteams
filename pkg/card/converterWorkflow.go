@@ -7,11 +7,13 @@ import (
 	"github.com/prometheus/alertmanager/notify/webhook"
 )
 
+// FactSectionWorkflow represents a name/value pair fact for Workflow connector cards.
 type FactSectionWorkflow struct {
 	Title string `json:"title"`
 	Value string `json:"value"`
 }
 
+// Body represents a body element in an adaptive card for Workflow connector cards.
 type Body struct {
 	Type   string                `json:"type"`
 	Text   string                `json:"text"`
@@ -24,15 +26,18 @@ type Body struct {
 	Facts  []FactSectionWorkflow `json:"facts,omitempty"`
 }
 
+// BackgroundImage represents the background image configuration for an adaptive card.
 type BackgroundImage struct {
 	URL      string `json:"url"`
 	FillMode string `json:"fillMode,omitempty"`
 }
 
+// MsTeams represents Microsoft Teams-specific configuration in an adaptive card.
 type MsTeams struct {
 	Width string `json:"width"`
 }
 
+// Content represents the content of an adaptive card for Workflow connector cards.
 type Content struct {
 	Schema          string          `json:"$schema"`
 	Type            string          `json:"type"`
@@ -43,12 +48,14 @@ type Content struct {
 	BackgroundImage BackgroundImage `json:"backgroundImage,omitempty"`
 }
 
+// AdaptiveCardItem represents an adaptive card item within a Workflow connector card attachment.
 type AdaptiveCardItem struct {
 	ContentType string  `json:"contentType"` // Always "application/vnd.microsoft.card.adaptive"
 	ContentURL  *string `json:"contentUrl"`  // Use a pointer to handle null values
 	Content     Content `json:"content"`
 }
 
+// WorkflowConnectorCard represents a Microsoft Teams Workflow connector card message.
 type WorkflowConnectorCard struct {
 	Type        string             `json:"type"`
 	Attachments []AdaptiveCardItem `json:"attachments"`
@@ -65,7 +72,7 @@ func (l loggingMiddleware) ConvertWorkflow(ctx context.Context, a webhook.Messag
 			}
 		}
 
-		l.logger.Log(
+		_ = l.logger.Log(
 			"alert", a,
 			"card", c,
 			"took", time.Since(begin),

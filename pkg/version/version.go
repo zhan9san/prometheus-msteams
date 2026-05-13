@@ -1,3 +1,4 @@
+// Package version provides build metadata variables for prometheus-msteams.
 package version
 
 // Build metadata.

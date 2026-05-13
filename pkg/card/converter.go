@@ -1,3 +1,5 @@
+// Package card provides types and utilities for converting Prometheus
+// Alertmanager webhook messages into Microsoft Teams connector card formats.
 package card
 
 import (
@@ -45,6 +47,7 @@ type Section struct {
 	PotentialAction  []Action      `json:"potentialAction,omitempty"`
 }
 
+// FactSection represents a name/value pair fact in an Office365 connector card section.
 type FactSection struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
@@ -84,7 +87,7 @@ func (l loggingMiddleware) Convert(ctx context.Context, a webhook.Message) (c Of
 			}
 		}
 
-		l.logger.Log(
+		_ = l.logger.Log(
 			"alert", a,
 			"card", c,
 			"took", time.Since(begin),

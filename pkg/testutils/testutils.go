@@ -1,3 +1,4 @@
+// Package testutils provides helper utilities for testing.
 package testutils
 
 import (
@@ -13,7 +14,7 @@ import (
 
 // ParseWebhookJSONFromFile is a helper for parsing webhook data from JSON files.
 func ParseWebhookJSONFromFile(f string) (webhook.Message, error) {
-	b, err := os.ReadFile(f)
+	b, err := os.ReadFile(f) //nolint:gosec
 	if err != nil {
 		return webhook.Message{}, err
 	}
@@ -34,7 +35,7 @@ func CompareToGoldenFile(t *testing.T, v interface{}, file string, update bool) 
 	gp := filepath.Join("testdata", file)
 	dir := filepath.Dir(gp)
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		_ = os.MkdirAll(dir, 0755)
+		_ = os.MkdirAll(dir, 0750)
 	}
 	if _, err := os.Stat(gp); os.IsNotExist(err) {
 		_ = os.WriteFile(gp, []byte{}, 0600)
@@ -45,7 +46,7 @@ func CompareToGoldenFile(t *testing.T, v interface{}, file string, update bool) 
 			t.Fatalf("failed to update golden file: %s", err)
 		}
 	}
-	want, err := os.ReadFile(gp)
+	want, err := os.ReadFile(gp) //nolint:gosec
 	if err != nil {
 		t.Fatalf("failed reading the golden file: %s", err)
 	}

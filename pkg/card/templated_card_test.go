@@ -8,6 +8,24 @@ import (
 	"github.com/prometheus-msteams/prometheus-msteams/pkg/testutils"
 )
 
+const (
+	testPromAlertFile   = "./testdata/prom_post_request.json"
+	testSchemaContext   = "http://schema.org/extensions"
+	testAlertTitle      = "Prometheus Alert (Firing)"
+	testAlertSummary    = "Prometheus Test"
+	testThemeColor      = "FFA500"
+	testActivityTitle   = "[10.80.40.11 reported high memory usage with 23.28%.](http://docker.for.mac.host.internal:9093)"
+	testMemorySummary   = "Server High Memory usage"
+	testAlertname       = "alertname"
+	testInstance        = "instance"
+	testJob             = "job"
+	testMonitor         = "master"
+	testSeverity        = "severity"
+	testLabelSummary    = "summary"
+	testLabelMonitor    = "monitor"
+	testSeverityWarning = "warning"
+)
+
 func Test_templatedCard_Convert(t *testing.T) {
 	tests := []struct {
 		name              string
@@ -19,27 +37,27 @@ func Test_templatedCard_Convert(t *testing.T) {
 	}{
 		{
 			name:              "do not escape underscores",
-			promAlertFile:     "./testdata/prom_post_request.json",
+			promAlertFile:     testPromAlertFile,
 			templateFile:      "../../default-message-card.tmpl",
 			escapeUnderscores: false,
 			want: Office365ConnectorCard{
-				Context:    "http://schema.org/extensions",
-				Type:       "MessageCard",
-				Title:      "Prometheus Alert (Firing)",
-				Summary:    "Prometheus Test",
-				ThemeColor: "FFA500",
+				Context:    testSchemaContext,
+				Type:       messageCardType,
+				Title:      testAlertTitle,
+				Summary:    testAlertSummary,
+				ThemeColor: testThemeColor,
 				Sections: []Section{
 					{
-						ActivityTitle: "[10.80.40.11 reported high memory usage with 23.28%.](http://docker.for.mac.host.internal:9093)",
+						ActivityTitle: testActivityTitle,
 						Markdown:      true,
 						Facts: []FactSection{
 							{},
-							{Name: "summary", Value: "Server High Memory usage"},
-							{Name: "alertname", Value: `high_memory_load`},
-							{Name: "instance", Value: `instance-with-hyphen_and_underscore`},
-							{Name: "job", Value: `docker_nodes`},
-							{Name: "monitor", Value: "master"},
-							{Name: "severity", Value: "warning"},
+							{Name: testLabelSummary, Value: testMemorySummary},
+							{Name: testAlertname, Value: `high_memory_load`},
+							{Name: testInstance, Value: `instance-with-hyphen_and_underscore`},
+							{Name: testJob, Value: `docker_nodes`},
+							{Name: testLabelMonitor, Value: testMonitor},
+							{Name: testSeverity, Value: testSeverityWarning},
 						},
 					},
 				},
@@ -47,27 +65,27 @@ func Test_templatedCard_Convert(t *testing.T) {
 		},
 		{
 			name:              "escape underscores",
-			promAlertFile:     "./testdata/prom_post_request.json",
+			promAlertFile:     testPromAlertFile,
 			templateFile:      "../../default-message-card.tmpl",
 			escapeUnderscores: true,
 			want: Office365ConnectorCard{
-				Context:    "http://schema.org/extensions",
-				Type:       "MessageCard",
-				Title:      "Prometheus Alert (Firing)",
-				Summary:    "Prometheus Test",
-				ThemeColor: "FFA500",
+				Context:    testSchemaContext,
+				Type:       messageCardType,
+				Title:      testAlertTitle,
+				Summary:    testAlertSummary,
+				ThemeColor: testThemeColor,
 				Sections: []Section{
 					{
-						ActivityTitle: "[10.80.40.11 reported high memory usage with 23.28%.](http://docker.for.mac.host.internal:9093)",
+						ActivityTitle: testActivityTitle,
 						Markdown:      true,
 						Facts: []FactSection{
 							{},
-							{Name: "summary", Value: "Server High Memory usage"},
-							{Name: "alertname", Value: `high\_memory\_load`},
-							{Name: "instance", Value: `instance-with-hyphen\_and\_underscore`},
-							{Name: "job", Value: `docker\_nodes`},
-							{Name: "monitor", Value: "master"},
-							{Name: "severity", Value: "warning"},
+							{Name: testLabelSummary, Value: testMemorySummary},
+							{Name: testAlertname, Value: `high\_memory\_load`},
+							{Name: testInstance, Value: `instance-with-hyphen\_and\_underscore`},
+							{Name: testJob, Value: `docker\_nodes`},
+							{Name: testLabelMonitor, Value: testMonitor},
+							{Name: testSeverity, Value: testSeverityWarning},
 						},
 					},
 				},
@@ -75,27 +93,27 @@ func Test_templatedCard_Convert(t *testing.T) {
 		},
 		{
 			name:              "action card",
-			promAlertFile:     "./testdata/prom_post_request.json",
+			promAlertFile:     testPromAlertFile,
 			templateFile:      "./testdata/action-message-card.tmpl",
 			escapeUnderscores: true,
 			want: Office365ConnectorCard{
-				Context:    "http://schema.org/extensions",
-				Type:       "MessageCard",
-				Title:      "Prometheus Alert (Firing)",
-				Summary:    "Prometheus Test",
-				ThemeColor: "FFA500",
+				Context:    testSchemaContext,
+				Type:       messageCardType,
+				Title:      testAlertTitle,
+				Summary:    testAlertSummary,
+				ThemeColor: testThemeColor,
 				Sections: []Section{
 					{
-						ActivityTitle: "[10.80.40.11 reported high memory usage with 23.28%.](http://docker.for.mac.host.internal:9093)",
+						ActivityTitle: testActivityTitle,
 						Markdown:      true,
 						Facts: []FactSection{
 							{},
-							{Name: "summary", Value: "Server High Memory usage"},
-							{Name: "alertname", Value: `high\_memory\_load`},
-							{Name: "instance", Value: `instance-with-hyphen\_and\_underscore`},
-							{Name: "job", Value: `docker\_nodes`},
-							{Name: "monitor", Value: "master"},
-							{Name: "severity", Value: "warning"},
+							{Name: testLabelSummary, Value: testMemorySummary},
+							{Name: testAlertname, Value: `high\_memory\_load`},
+							{Name: testInstance, Value: `instance-with-hyphen\_and\_underscore`},
+							{Name: testJob, Value: `docker\_nodes`},
+							{Name: testLabelMonitor, Value: testMonitor},
+							{Name: testSeverity, Value: testSeverityWarning},
 						},
 					},
 				},
