@@ -1,3 +1,4 @@
+// Package service implements the alert forwarding logic from Prometheus Alertmanager to MS Teams.
 package service
 
 import (

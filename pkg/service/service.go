@@ -13,8 +13,10 @@ import (
 	"go.opencensus.io/trace"
 )
 
+// WebhookType represents the type of Microsoft Teams webhook connector.
 type WebhookType string
 
+// Supported webhook types for Microsoft Teams connectors.
 const (
 	O365     WebhookType = "o365"
 	Workflow WebhookType = "microsoft-workflow"
@@ -123,7 +125,7 @@ func (s simpleService) post(ctx context.Context, c interface{}, url string) (Pos
 		err = fmt.Errorf("http client failed: %w", err)
 		return pr, err
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	pr.Status = resp.StatusCode
 

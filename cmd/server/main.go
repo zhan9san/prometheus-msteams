@@ -1,3 +1,4 @@
+// Package main is the entry point for the prometheus-msteams server.
 package main
 
 import (
@@ -57,7 +58,7 @@ type ConnectorWithCustomTemplate struct {
 }
 
 func parseTeamsConfigFile(f string) (PromTeamsConfig, error) {
-	b, err := os.ReadFile(f)
+	b, err := os.ReadFile(f) //nolint:gosec
 	if err != nil {
 		return PromTeamsConfig{}, err
 	}

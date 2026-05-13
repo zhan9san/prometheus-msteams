@@ -1,3 +1,4 @@
+// Package transport implements the HTTP layer for the alertmanager webhook bridge.
 package transport
 
 import (
